@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "收益中心",
+  "usingComponents": {
+    "i-icon": "../../Components/icon/index",
+    "i-tab": "../../Components/tabbar/index"
+  }
+}

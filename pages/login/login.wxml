@@ -1,0 +1,16 @@
+<!--pages/login/login.wxml-->
+<view class="body">
+  <view class="name">登录</view>
+  <form bindsubmit="login">
+    <view class="phoneNumber">
+      <i-icon type="mine" size='30' color='#747681' />
+      <input name="userAccount" type='text' placeholder='请输入账号' class="txt"  ></input>
+    </view>
+    <view class="phoneNumber">
+      <i-icon type="browse" size='30' color='#747681' />
+      <input name="password" password="true" placeholder='请输入密码' class="txt" ></input>
+    </view>
+    <button class="btn" formType="submit">登录</button>
+  </form>
+</view>
+<i-toast id="toast" />

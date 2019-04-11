@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "用户登录",
+  "usingComponents": {
+    "i-icon": "../../Components/icon/index",
+    "i-toast": "../../Components/toast/index"
+  },
+  "disableScroll":true
+}

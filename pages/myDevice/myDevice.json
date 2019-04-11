@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我的设备",
+  "usingComponents": {
+    "i-icon": "../../Components/icon/index",
+      "i-tab": "../../Components/tabbar/index",
+      "i-page": "../../Components/page/index"
+  }
+}

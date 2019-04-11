@@ -1,0 +1,164 @@
+/* pages/myDevice/myDevice.wxss */
+.boby{
+  margin: 10px;
+  height: 90%
+}
+.title{
+  font-weight: 600;
+  font-size: 18px;
+}
+.title-sty{
+  display: flex;
+  align-items: center
+}
+.yxbg{
+  background-color: rgba(238, 238, 238,0.4);
+  width: 100%;
+  height: 210px;
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+.xpsl{
+  background-color: rgba(238, 238, 238,0.4);
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+
+.sbxl{
+  background-color: rgba(238, 238, 238,0.4);
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+.details{
+  padding: 10px 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+.details-column{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  color: #555;
+}
+
+.mask{
+  width: 100vh;
+  height: 100vh;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  background: darkgrey;
+  /* z-index: 9000; */
+  opacity: 0.7;
+}
+ 
+.modalText {
+   font-size: 32rpx;
+   color: chocolate;
+   margin-bottom: 30rpx;
+}
+
+.modalDlg{
+  width: 580rpx;
+  height: 160rpx;
+  position: fixed;
+  padding-top: 30rpx;
+  top: 40%; 
+  left: 10%;
+  /* z-index: 9999; */
+  /* margin: -370rpx 85rpx; */
+  background-color: #fff;
+  border-radius: 36rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; 
+}
+
+/** 修改button默认的点击态样式类**/
+.modalButton {
+   width:100%;
+   font-family: fantasy;
+   border-radius: 0;
+}
+
+.modalButton::after {
+   border:none;
+   border-radius: 0;
+}
+
+ 
+.header {
+    margin: 90rpx 0 90rpx 50rpx;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    width: 650rpx;
+    height: 300rpx;
+    line-height: 450rpx;
+}
+ 
+.header image {
+    width: 200rpx;
+    height: 200rpx;
+}
+ 
+.content {
+    margin-left: 50rpx;
+    margin-bottom: 90rpx;
+}
+ 
+.content text {
+    display: block;
+    color: #9d9d9d;
+    margin-top: 40rpx;
+}
+ 
+.bottom {
+    border-radius: 80rpx;
+    margin: 70rpx 50rpx;
+    font-size: 35rpx;
+}
+.goods-sales{
+  display: flex;
+  align-content: center;
+  margin-top: 5px;
+}
+.goods-details{
+  width:33%;
+  color:#555;
+  text-align:center;
+}
+.tradeRecords-details{
+  width:25%;
+  color:#555;
+  text-align:center;
+}
+.tradeRecords-num{
+  width:15%;
+  color:#555;
+  text-align:center;
+}
+.tradeRecords-time{
+  width:40%;
+  color:#555;
+  text-align:center;
+}
+.btn{
+  width: 70px;
+  height: 30px;
+  font-size: 11px;
+}
+.choose-btn{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between
+}

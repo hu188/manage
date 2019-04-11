@@ -1,0 +1,6 @@
+<!--Components/tabbar/index.wxml-->
+<i-tab-bar current="{{ current }}" color="#0188FB" bindchange="handleChange" fixed="true">
+    <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的设备"></i-tab-bar-item>
+    <i-tab-bar-item key="income" icon="redpacket" current-icon="redpacket_fill" title="收益中心"></i-tab-bar-item>
+</i-tab-bar>
+

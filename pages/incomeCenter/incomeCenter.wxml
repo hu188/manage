@@ -1,0 +1,28 @@
+<!--pages/incomeCenter/incomeCenter.wxml-->
+<wxs module="price" src="../../utils/common.wxs" />
+<view class="income">
+  <view class="income-list">
+    <view class="title">累计分红金额</view>
+    <view>￥{{price.price(20)}}</view>
+  </view>
+  <view class="income-list">
+    <view class="title">可提现金额</view>
+    <view>￥{{price.price(20)}}</view>
+  </view>
+</view>
+<view class="income">
+  <view class="income-list">
+    <view class="title">待结算金额</view>
+    <view>￥{{price.price(20)}}</view>
+  </view>
+  <view class="income-list">
+    <view class="title">收益占比</view>
+    <view>20%</view>
+  </view>
+    <view class="income-list">
+    <view class="title">待结算分红</view>
+    <view>￥{{price.price(20)}}</view>
+  </view>
+</view>
+<button class="btn" bindtap='exitLogin'>退出登录</button>
+<i-tab current='income'></i-tab>
