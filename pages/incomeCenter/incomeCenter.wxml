@@ -1,6 +1,6 @@
 <!--pages/incomeCenter/incomeCenter.wxml-->
 <wxs module="price" src="../../utils/common.wxs" />
-<view class="income">
+<!-- <view class="income">
   <view class="income-list">
     <view class="title">累计分红金额</view>
     <view>￥{{price.price(20)}}</view>
@@ -23,6 +23,61 @@
     <view class="title">待结算分红</view>
     <view>￥{{price.price(20)}}</view>
   </view>
+</view> -->
+<view class="body">
+  <view style='margin-left:15px;margin-right:15px;'>
+    <view class="title-sty">
+      <i-icon type="collection_fill" size="20" color="#0188FB" />
+      <view class="title">分账信息</view>
+    </view>
+
+
+
+      <view class="fzxx" >
+        <scroll-view scroll-x="true" class="account-details" style='height:{{accountHeight}}px' >
+          <view class="user-details" style='height:{{accountHeight}}px'>
+            用户名称
+            <view wx:for="{{acountDetails}}" wx:key="acountDetails" class="xxx">
+              <view class="params-sty">{{item.realname}}</view>
+            </view>
+          </view>
+          <view class="user-details" style='height:{{accountHeight}}px'>比例/抽成
+            <view wx:for="{{acountDetails}}" wx:key="acountDetails" class="xxx">
+              <view class="params-sty">{{item.percent}}{{item.splitType==1?"%":''}}</view>
+            </view>
+          </view>
+          <view class="user-details" style='height:{{accountHeight}}px'>已出账余额
+            <view wx:for="{{acountDetails}}" wx:key="acountDetails" class="xxx">
+           
+              <view class="params-sty" wx:if="{{item.accountMoney}}">{{price.price(item.splitType==1?(item.accountMoney*item.percent)/100:(item.accountMoney*item.percent))}}</view>
+             <view class="params-sty" wx:else>{{price.price(0)}}</view>
+            </view>
+          </view>
+          <view class="user-details" style='height:{{accountHeight}}px'>未出账余额
+            <view wx:for="{{acountDetails}}" wx:key="acountDetails" class="xxx">
+              <view class="params-sty">{{price.price(item.currentMoney?item.currentMoney:0)}}</view>
+            </view>
+          </view>
+          <view class="user-details" style='height:{{accountHeight}}px'>已打款金额
+            <view wx:for="{{acountDetails}}" wx:key="acountDetails" class="xxx">
+              <view class="params-sty">{{price.price(item.payedMoney/100)}}</view>
+            </view>
+          </view>
+          <view class="user-details" style='height:{{accountHeight}}px'>打款结算时间
+            <view wx:for="{{acountDetails}}" wx:key="acountDetails" class="xxx">
+              <view class="params-sty">{{item.time}}</view>
+            </view>
+          </view>
+        </scroll-view>
+
+        <view class="choose-btn">
+          <button class="prev-btn" data-choose='prev' bindtap='handleChange' disabled="{{ (acountCurrent <= 1) ? true : false}}">上一页</button>
+          <view>{{acountCurrent}}/{{acountPageCount}}</view>
+           <button class="prev-btn" data-choose='next' bindtap='handleChange' disabled="{{ (acountCurrent >= acountPageCount) ?true:false}}">下一页</button>
+           </view>
+      </view>
+
+  </view>
 </view>
-<button class="btn" bindtap='exitLogin'>退出登录</button>
+<!-- <button class="btn" bindtap='exitLogin'>退出登录</button> -->
 <i-tab current='income'></i-tab>

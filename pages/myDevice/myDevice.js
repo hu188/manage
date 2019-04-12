@@ -17,8 +17,9 @@ Page({
     deviceSales:[],//设备销售记录
     operateInfo:[],//运营数据
     tradeRecords:[],//x销售记录
-    current: 1,
-    total:'5'
+    current: 1,//当前页
+    pageCount:'1',//总页数
+ 
   },
 
   /**
@@ -136,13 +137,13 @@ Page({
           app.globalData.id = res.id,
           app.globalData.type = res.type,
           app.globalData.levelTypeId = res.levelTypeId
-        this.queryGoodsSalesRank();
+        this.queryOperationData();
       }
     })
   },
 
   //获取商品销量排行
-  queryGoodsSalesRank(){
+  queryOperationData(){
     const { sessionId,id,type,levelTypeId} = app.globalData
     const params = {
       sign: encode({
@@ -159,17 +160,16 @@ Page({
         levelTypeId: levelTypeId
       }
     }
-  
+    //商品排行
     http('qsq/service/external/salesDetails/getGoodsSaleRank', JSON.stringify(params), 1, 1).then(res => {
-      var tradeRecords = res.tradeRecords
-      for (var i = 0; i < tradeRecords.length;i++){
-        tradeRecords[i].time = this.formatDateTime(tradeRecords[i].createTime)
-
-      }
+      // var tradeRecords = res.tradeRecords
+      // for (var i = 0; i < tradeRecords.length; i++) {
+      //   tradeRecords[i].time = this.formatDateTime(tradeRecords[i].createTime)
+      // }
       this.setData({
         goodsSales: res.goodsSales,
-        deviceSales: res.deviceSales,
-        tradeRecords: tradeRecords
+        deviceSales: res.deviceSales
+        // tradeRecords: tradeRecords
       })
     })
     http('qsq/service/external/salesDetails/getDeviceOperateInfo', JSON.stringify(params), 1, 1).then(res => {
@@ -182,11 +182,7 @@ Page({
   //       deviceSales: res
   //     })
   //   })
-  //   http('qsq/service/external/salesDetails/getAllTradeRecords', JSON.stringify(params), 1, 1).then(res => {
-  //     this.setData({
-  //       tradeRecords: res
-  //     })
-  //   })
+  this.getTradeRecords()
   },
 
   /**
@@ -198,16 +194,53 @@ Page({
     }
   },
   handleChange(e) {
-    const type = e.target.dataset.choose;
-    if (type === 'next') {
+    const choose = e.target.dataset.choose;
+    const {current,pageCount} = this.data
+
+    if (choose === 'next') {
       this.setData({
-        current: this.data.current + 1
+        current: (current>=pageCount)?current:current + 1,
       });
-    } else if (type === 'prev') {
+    } else if (choose === 'prev') {
       this.setData({
-        current: this.data.current - 1
+        current: (current <= 1) ?current:current - 1,
       });
     }
+    this.getTradeRecords()
+  },
+
+  //获取销售记录汇总
+  getTradeRecords(){
+    const { sessionId, id, type, levelTypeId } = app.globalData
+    const params = {
+      sign: encode({
+        sessionId: sessionId,
+        userId: id,
+        type: type,
+        levelTypeId: levelTypeId,
+        currentPage: this.data.current,
+        limit: '2'
+      }, sessionId),
+      sessionId: sessionId,
+      params: {
+        sessionId: sessionId,
+        userId: id,
+        type: type,
+        levelTypeId: levelTypeId,
+        currentPage: this.data.current,
+        limit: '2'
+      }
+    }
+    http('qsq/service/external/salesDetails/getAllTradeRecords', JSON.stringify(params), 1, 1).then(res => {
+      var tradeRecords = res.allRecordsList
+      for (var i = 0; i < tradeRecords.length; i++) {
+        tradeRecords[i].time = this.formatDateTime(tradeRecords[i].createTime)
+      }
+      this.setData({
+        tradeRecords: tradeRecords,
+        pageCount: res.pageCount
+      })
+    })
   },
   //格式化时间
   formatDateTime: function (inputTime) {

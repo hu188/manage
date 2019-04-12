@@ -79,18 +79,18 @@
     </view>
     <view wx:if="{{deviceSales!=''}}">
       <view class="sbxl" style='height:{{deviceSales.length*30+30}}px'>
-        
-          <view class="goods-sales">
-            <view class="goods-details">设备名称</view>
-            <view class="goods-details">交易总数量</view>
-            <view class="goods-details">交易总金额</view>
-          </view>
-          <view wx:for="{{deviceSales}}" wx:key="deviceSales" class="goods-sales">
-            <view class="goods-details">{{item.remark}}</view>
-            <view class="goods-details">{{item.weChatCount+item.otherPayCount+item.aliPayCount}}</view>
-            <view class="goods-details">{{item.weChatAmount+item.otherPayAmount+item.aliPayAmount}}</view>
-          </view>
-       
+
+        <view class="goods-sales">
+          <view class="goods-details">设备名称</view>
+          <view class="goods-details">交易总数量</view>
+          <view class="goods-details">交易总金额</view>
+        </view>
+        <view wx:for="{{deviceSales}}" wx:key="deviceSales" class="goods-sales">
+          <view class="goods-details">{{item.remark}}</view>
+          <view class="goods-details">{{item.weChatCount+item.otherPayCount+item.aliPayCount}}</view>
+          <view class="goods-details">{{item.weChatAmount+item.otherPayAmount+item.aliPayAmount}}</view>
+        </view>
+
       </view>
     </view>
     <view class="title-sty">
@@ -98,7 +98,7 @@
       <view class="title">销售记录汇总</view>
     </view>
     <view wx:if="{{tradeRecords!=''}}">
-      <view class="sbxl" style='height:{{tradeRecords.length*20+90}}px'>
+      <view class="sbxl" style='height:{{tradeRecords.length*20+80}}px'>
         <view class="goods-sales">
           <view class="tradeRecords-details">商品</view>
           <view class="tradeRecords-num">数量</view>
@@ -110,11 +110,11 @@
           <view class="tradeRecords-num" style='font-size:13px;'>{{item.cupsNumber}}</view>
           <view class="tradeRecords-num" style='font-size:13px;'>{{item.money}}</view>
           <view class="tradeRecords-time" style='font-size:13px;'>{{item.time}}</view>
-        </view>   
+        </view>
         <view class="choose-btn">
-          <button class="btn" data-choose='prev' bindtap='handleChange'>上一页</button>
-          <view>{{current}}/{{total}}</view>
-          <button class="btn" data-choose='next' bindtap='handleChange'>下一页</button>
+          <button class="btn" data-choose='prev' bindtap='handleChange' disabled="{{ (current <= 1) ? true : false}}">上一页</button>
+          <view>{{current}}/{{pageCount}}</view>
+          <button class="btn" data-choose='next' bindtap='handleChange' disabled="{{ (current >= pageCount) ?true:false}}">下一页</button>
         </view>
       </view>
     </view>
