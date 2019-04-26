@@ -35,11 +35,9 @@ module.exports =  {
                     } 
                      else if (code * 1 === 77) { //会话过期,重新登录
                       wx.showToast({
-                        title: '会话过期,重新登录',
+                        title: '登录过期',
                         icon: 'loading'
                       })
-                        //getApp().login()
-                     
                     } else if (code * 1 === 78){
                       wx.showToast({
                         title: '请求发生错误！',

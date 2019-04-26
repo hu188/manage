@@ -1,6 +1,7 @@
 // pages/incomeCenter/incomeCenter.js
 import { http } from '../../utils/http';
 import { encode } from '../../utils/encode';
+const util = require('../../utils/util.js')
 var app = getApp();
 Page({
 
@@ -8,10 +9,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    acountDetails:[],
+    acountDetails:[],//分账信息
     acountCurrent:1,
-    acountPageCount:'1',
-    accountHeight:''
+    acountPageCount:1,
+    accountHeight:'',
+    transferList:[],//转账记录
+    transferCurrent: 1,
+    transferPageCount: 1,
+    transferHeight: '',
   },
 
   /**
@@ -19,7 +24,7 @@ Page({
    */
   onLoad: function (options) {
     wx.hideTabBar()
-    this.getAccountDetails()
+   
   },
 
  /**
@@ -34,7 +39,7 @@ Page({
         type: type,
         levelTypeId: levelTypeId,
         currentPage: that.data.acountCurrent,
-        limit: '5'
+        limit: '6'
       }, sessionId),
       sessionId: sessionId,
       params: {
@@ -42,14 +47,14 @@ Page({
         type: type,
         levelTypeId: levelTypeId,
         currentPage: that.data.acountCurrent,
-        limit:'5'
+        limit:'6'
       }
     }
     http('qsq/service/external/salesDetails/getAccountDetails', JSON.stringify(params), 1, 1).then(res=>{
       var acountDetails = res.userList
       for (var i = 0; i < acountDetails.length; i++) {
         if (acountDetails[i].payedMoneyTime){
-          acountDetails[i].time = this.formatDateTime(acountDetails[i].payedMoneyTime)
+          acountDetails[i].time = util.formatDateTime(acountDetails[i].payedMoneyTime)
         }
       
       }
@@ -60,27 +65,53 @@ Page({
       })
     })
   },
-  //格式化时间
-  formatDateTime: function (inputTime) {
-    var date = new Date(inputTime);
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    m = m < 10 ? ('0' + m) : m;
-    var d = date.getDate();
-    d = d < 10 ? ('0' + d) : d;
-    var h = date.getHours();
-    h = h < 10 ? ('0' + h) : h;
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
-    minute = minute < 10 ? ('0' + minute) : minute;
-    second = second < 10 ? ('0' + second) : second;
-    return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+
+
+  /**
+ * 查询转账记录
+ */
+  getTransferList() {
+    let that = this
+    const { sessionId, id, type, levelTypeId } = app.globalData
+    const params = {
+      sign: encode({
+        sessionId: sessionId,
+        type: type,
+        levelTypeId: levelTypeId,
+        currentPage: that.data.transferCurrent,
+        userId:id,
+        limit: '6'
+      }, sessionId),
+      sessionId: sessionId,
+      params: {
+        sessionId: sessionId,
+        type: type,
+        levelTypeId: levelTypeId,
+        currentPage: that.data.transferCurrent,
+        userId:id,
+        limit: '6'
+      }
+    }
+    http('qsq/service/external/salesDetails/getTransferList', JSON.stringify(params), 1, 1).then(res => {
+      var transferList = res.transferList
+      for (var i = 0; i < transferList.length; i++) {
+        if (transferList[i].createTime) {
+          transferList[i].time = util.formatDateTime(transferList[i].createTime)
+        }
+
+      }
+      that.setData({
+        transferList: transferList,
+        transferPageCount: res.pageCount,
+        transferHeight: transferList.length * 29 + 30
+      })
+    })
   },
-  //上一页/下一页
+
+  //分账信息上一页/下一页
   handleChange(e) {
     const choose = e.target.dataset.choose;
     const { acountCurrent, acountPageCount } = this.data
-    console.log(acountCurrent)
     if (choose === 'next') {
       this.setData({
         acountCurrent: (acountCurrent >= acountPageCount) ? acountCurrent : acountCurrent + 1,
@@ -93,37 +124,30 @@ Page({
     }
     this.getAccountDetails()
   },
-//退出登录
-  exitLogin:function(){
-    const { sessionId, id } = app.globalData
-    console.log(id)
-    const params = {
-      sign: encode({
-        sessionId: sessionId,
-        id: id
-      }, sessionId),
-      sessionId: sessionId,
-      params: {
-        sessionId: sessionId,
-        id: id
-      }
+
+  //转账记录上一页/下一页
+  transferHandleChange(e) {
+    const choose = e.target.dataset.choose;
+    const { transferCurrent, transferPageCount } = this.data
+    if (choose === 'next') {
+      this.setData({
+        transferCurrent: (transferCurrent >= transferPageCount) ? transferCurrent : transferCurrent + 1,
+      });
+      console.log(this.data.transferCurrent)
+    } else if (choose === 'prev') {
+      this.setData({
+        transferCurrent: (transferCurrent <= 1) ? transferCurrent : transferCurrent - 1,
+      });
     }
-    http('qsq/service/external/WxUser/saveExitUserLogin', JSON.stringify(params), 1, 1).then(res=>{
-      if(res==1){
-        wx.showToast({
-          title: '退出成功',
-        })
-        wx.redirectTo({
-          url: '../login/login',
-        })
-      }
-    })
+    this.getTransferList()
   },
+
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getAccountDetails();
+    this.getTransferList();
   },
 
   /**

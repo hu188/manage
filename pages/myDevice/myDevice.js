@@ -2,6 +2,7 @@
 var app = getApp();
 import { http } from '../../utils/http';
 import { encode } from '../../utils/encode';
+const util = require('../../utils/util.js')
 Page({
 
   /**
@@ -19,7 +20,7 @@ Page({
     tradeRecords:[],//x销售记录
     current: 1,//当前页
     pageCount:'1',//总页数
- 
+    realName:'',//用户名
   },
 
   /**
@@ -136,13 +137,16 @@ Page({
       } else {
           app.globalData.id = res.id,
           app.globalData.type = res.type,
-          app.globalData.levelTypeId = res.levelTypeId
+          app.globalData.levelTypeId = res.levelTypeId,
+          this.setData({
+            realName:res.realname
+          })
         this.queryOperationData();
       }
     })
   },
 
-  //获取商品销量排行
+  //获取设备运营数据
   queryOperationData(){
     const { sessionId,id,type,levelTypeId} = app.globalData
     const params = {
@@ -162,14 +166,11 @@ Page({
     }
     //商品排行
     http('qsq/service/external/salesDetails/getGoodsSaleRank', JSON.stringify(params), 1, 1).then(res => {
-      // var tradeRecords = res.tradeRecords
-      // for (var i = 0; i < tradeRecords.length; i++) {
-      //   tradeRecords[i].time = this.formatDateTime(tradeRecords[i].createTime)
-      // }
+   
       this.setData({
         goodsSales: res.goodsSales,
         deviceSales: res.deviceSales
-        // tradeRecords: tradeRecords
+    
       })
     })
     http('qsq/service/external/salesDetails/getDeviceOperateInfo', JSON.stringify(params), 1, 1).then(res => {
@@ -177,11 +178,7 @@ Page({
         operateInfo: res
       })
     })
-  //   http('qsq/service/external/salesDetails/getDeviceTradeInfo', JSON.stringify(params), 1, 1).then(res => {
-  //     this.setData({
-  //       deviceSales: res
-  //     })
-  //   })
+ 
   this.getTradeRecords()
   },
 
@@ -190,7 +187,7 @@ Page({
    */
   onShow: function () {
     if(app.globalData.type){
-      this.queryGoodsSalesRank()
+      this.queryOperationData()
     }
   },
   handleChange(e) {
@@ -219,7 +216,7 @@ Page({
         type: type,
         levelTypeId: levelTypeId,
         currentPage: this.data.current,
-        limit: '2'
+        limit: '10'
       }, sessionId),
       sessionId: sessionId,
       params: {
@@ -228,13 +225,13 @@ Page({
         type: type,
         levelTypeId: levelTypeId,
         currentPage: this.data.current,
-        limit: '2'
+        limit: '10'
       }
     }
     http('qsq/service/external/salesDetails/getAllTradeRecords', JSON.stringify(params), 1, 1).then(res => {
       var tradeRecords = res.allRecordsList
       for (var i = 0; i < tradeRecords.length; i++) {
-        tradeRecords[i].time = this.formatDateTime(tradeRecords[i].createTime)
+        tradeRecords[i].time = util.formatDateTime(tradeRecords[i].createTime)
       }
       this.setData({
         tradeRecords: tradeRecords,
@@ -242,54 +239,42 @@ Page({
       })
     })
   },
-  //格式化时间
-  formatDateTime: function (inputTime) {
-    var date = new Date(inputTime);
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    m = m < 10 ? ('0' + m) : m;
-    var d = date.getDate();
-    d = d < 10 ? ('0' + d) : d;
-    var h = date.getHours();
-    h = h < 10 ? ('0' + h) : h;
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
-    minute = minute < 10 ? ('0' + minute) : minute;
-    second = second < 10 ? ('0' + second) : second;
-    return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
-  },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  //退出登录
+  exitLogin: function () {
+    wx.showModal({
+      title: '友情提醒',
+      content: '是否确认退出',
+      success(res) {
+        if (res.confirm) {
+          const { sessionId, id } = app.globalData
+          console.log(id)
+          const params = {
+            sign: encode({
+              sessionId: sessionId,
+              id: id
+            }, sessionId),
+            sessionId: sessionId,
+            params: {
+              sessionId: sessionId,
+              id: id
+            }
+          }
+          http('qsq/service/external/WxUser/saveExitUserLogin', JSON.stringify(params), 1, 1).then(res => {
+            if (res == 1) {
+              wx.showToast({
+                title: '退出成功',
+              })
+              wx.redirectTo({
+                url: '../login/login',
+              })
+            }
+          })
+        } 
+      }
+    })
+   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
-  }
+ 
 })

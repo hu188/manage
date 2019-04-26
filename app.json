@@ -1,28 +1,26 @@
 {
   "pages": [
-   
+    
     "pages/myDevice/myDevice",
     "pages/login/login",
-    "pages/incomeCenter/incomeCenter",
-    "pages/index/index"
-
+    "pages/index/index",
+    "pages/incomeCenter/incomeCenter"
+   
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
-  
   },
-      "tabBar": {
-        "list": [
-          {
-            "pagePath": "pages/myDevice/myDevice"
-          },
-          {
-            "pagePath": "pages/incomeCenter/incomeCenter"
-          }
-        ]
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/myDevice/myDevice"
+      },
+      {
+        "pagePath": "pages/incomeCenter/incomeCenter"
       }
-  
+    ]
+  }
 }

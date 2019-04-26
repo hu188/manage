@@ -1,7 +1,7 @@
 /* pages/myDevice/myDevice.wxss */
 .boby{
   margin: 10px;
-  height: 90%
+  height: 91%
 }
 .title{
   font-weight: 600;
@@ -9,17 +9,21 @@
 }
 .title-sty{
   display: flex;
-  align-items: center
+  align-items: center;
+  margin-top: 5px;
+ 
 }
 .yxbg{
-  background-color: rgba(238, 238, 238,0.4);
+  background-color: rgba(238, 238, 238,0.6);
+
   width: 100%;
   height: 210px;
   border-radius: 5px;
   margin: 10px 0px;
 }
 .xpsl{
-  background-color: rgba(238, 238, 238,0.4);
+  background-color: rgba(238, 238, 238,0.6);
+  
   width: 100%;
   height: 40px;
   border-radius: 5px;
@@ -27,7 +31,8 @@
 }
 
 .sbxl{
-  background-color: rgba(238, 238, 238,0.4);
+  background-color: rgba(238, 238, 238,0.6);
+  
   width: 100%;
   height: 40px;
   border-radius: 5px;
@@ -49,52 +54,6 @@
   color: #555;
 }
 
-.mask{
-  width: 100vh;
-  height: 100vh;
-  /* position: fixed; */
-  top: 0;
-  left: 0;
-  background: darkgrey;
-  /* z-index: 9000; */
-  opacity: 0.7;
-}
- 
-.modalText {
-   font-size: 32rpx;
-   color: chocolate;
-   margin-bottom: 30rpx;
-}
-
-.modalDlg{
-  width: 580rpx;
-  height: 160rpx;
-  position: fixed;
-  padding-top: 30rpx;
-  top: 40%; 
-  left: 10%;
-  /* z-index: 9999; */
-  /* margin: -370rpx 85rpx; */
-  background-color: #fff;
-  border-radius: 36rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; 
-}
-
-/** 修改button默认的点击态样式类**/
-.modalButton {
-   width:100%;
-   font-family: fantasy;
-   border-radius: 0;
-}
-
-.modalButton::after {
-   border:none;
-   border-radius: 0;
-}
 
  
 .header {
@@ -130,12 +89,19 @@
 .goods-sales{
   display: flex;
   align-content: center;
-  margin-top: 5px;
+  margin-top: 8px;
+  border-bottom: 0.5px #6B6B6B dashed;
 }
 .goods-details{
   width:33%;
   color:#555;
   text-align:center;
+}
+.goods-details-txt{
+  width:33%;
+  color:#555;
+  text-align:center;
+  font-size: 14px;
 }
 .tradeRecords-details{
   width:25%;
@@ -161,4 +127,9 @@
   margin-top: 10px;
   display: flex;
   justify-content: space-between
+}
+.empty{
+  margin-top: 10px;
+  height: 10px;
+  background: rgba(1,136,251,0.2);
 }

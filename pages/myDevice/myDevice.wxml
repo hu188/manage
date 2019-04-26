@@ -16,7 +16,11 @@
   <view wx:else>请升级微信版本</view>
 </view>
 <view wx:else class="boby">
-  <scroll-view scroll-y scroll-x='false' style='height:100%'>
+  <view style='font-size:15px; text-align: right;margin-right:20px;font-weight: 600;'>
+    <text style='margin-right:25px;'>欢迎您，{{realName}}</text>
+    <text style='color:red'  bindtap='exitLogin'>退出</text>
+  </view>
+  <scroll-view scroll-y scroll-x='false' style='height:97%'>
     <view class="title-sty">
       <i-icon type="collection_fill" size="20" color="#0188FB" />
       <view class="title">运营报告</view>
@@ -29,7 +33,7 @@
         </view>
         <view class="details-column">
           <view>设备在线数量</view>
-          <view>10台</view>
+          <view>0台</view>
         </view>
       </view>
       <view class="details">
@@ -53,32 +57,32 @@
         </view>
       </view>
     </view>
-
+ <view class="empty"></view>
     <view class="title-sty">
       <i-icon type="collection_fill" size="20" color="#0188FB" />
-      <view class="title">商品销量排行榜</view>
+      <view class="title">商品销量排行榜（近一个月）</view>
     </view>
     <view wx:if="{{goodsSales!=''}}">
-      <view class="xpsl" style='height:{{goodsSales.length*30+30}}px'>
+      <view class="xpsl" style='height:{{goodsSales.length*28+30}}px'>
         <view class="goods-sales">
           <view class="goods-details">商品名称</view>
           <view class="goods-details">销售数量</view>
           <view class="goods-details">销售金额</view>
         </view>
         <view wx:for="{{goodsSales}}" wx:key="goodsSales" class="goods-sales">
-          <view class="goods-details">{{item.goodsRoadName}}</view>
-          <view class="goods-details">{{item.saleCount}}</view>
-          <view class="goods-details">{{item.money}}</view>
+          <view class="goods-details-txt">{{item.goodsRoadName}}</view>
+          <view class="goods-details-txt">{{item.saleCount}}</view>
+          <view class="goods-details-txt">{{item.money}}</view>
         </view>
       </view>
     </view>
-
+ <view class="empty"></view>
     <view class="title-sty">
       <i-icon type="collection_fill" size="20" color="#0188FB" />
-      <view class="title">设备销量汇总</view>
+      <view class="title">设备销量汇总（近一个月）</view>
     </view>
     <view wx:if="{{deviceSales!=''}}">
-      <view class="sbxl" style='height:{{deviceSales.length*30+30}}px'>
+      <view class="sbxl" style='height:{{deviceSales.length*28+30}}px'>
 
         <view class="goods-sales">
           <view class="goods-details">设备名称</view>
@@ -86,19 +90,20 @@
           <view class="goods-details">交易总金额</view>
         </view>
         <view wx:for="{{deviceSales}}" wx:key="deviceSales" class="goods-sales">
-          <view class="goods-details">{{item.remark}}</view>
-          <view class="goods-details">{{item.weChatCount+item.otherPayCount+item.aliPayCount}}</view>
-          <view class="goods-details">{{item.weChatAmount+item.otherPayAmount+item.aliPayAmount}}</view>
+          <view class="goods-details-txt">{{item.remark}}</view>
+          <view class="goods-details-txt">{{item.weChatCount+item.otherPayCount+item.aliPayCount}}</view>
+          <view class="goods-details-txt">{{price.price(item.weChatAmount+item.otherPayAmount+item.aliPayAmount)}}</view>
         </view>
 
       </view>
     </view>
+     <view class="empty"></view>
     <view class="title-sty">
       <i-icon type="collection_fill" size="20" color="#0188FB" />
-      <view class="title">销售记录汇总</view>
+      <view class="title">销售记录汇总（近一个月）</view>
     </view>
     <view wx:if="{{tradeRecords!=''}}">
-      <view class="sbxl" style='height:{{tradeRecords.length*20+80}}px'>
+      <view class="sbxl" style='height:{{tradeRecords.length*25+90}}px'>
         <view class="goods-sales">
           <view class="tradeRecords-details">商品</view>
           <view class="tradeRecords-num">数量</view>

@@ -22,6 +22,11 @@
 }
 
 /*  */
+.empty{
+  margin-top: 10px;
+  height: 10px;
+  background: rgba(1,136,251,0.2);
+}
 
 .body{
   width:100%;
@@ -29,18 +34,14 @@
 }
 .title{
   font-weight: 600;
+  font-size: 18px;
 }
 .title-sty{
   display: flex;
-  align-items: center
+  align-items: center;
+  margin-top: 5px;
 }
-/* .fzxx{
-  background-color: rgba(238, 238, 238,0.4);
-  width: 100%;
-  height: 350px;
-  border-radius: 5px;
-  margin: 10px 0px;
-} */
+
 .goods-sales{
   display: flex;
   align-content: center;
@@ -53,17 +54,22 @@
 }
 .user-details{
   width: 130px; 
+  /* padding-right: 15px; */
   height: 300px; 
   display: inline-block;
   text-align:center;
   /* border-right: 1px #000 solid; */
 }
+.transfer-details{
+  height: 300px; 
+  display: inline-block;
+  text-align:center;
+}
 .account-details{
-  background-color: rgba(117,117,117,0.4);
+  /* background-color: rgba(117,117,117,0.2); */
+  background-color: rgba(238, 238, 238,0.6);
   height:50px; 
   white-space: nowrap;
-  /* border: 1px #000 solid; */
-  /* color:#555 ; */
   margin-top: 15px;
   border-radius: 10px;
 }
@@ -71,9 +77,12 @@
   display: inline-block;
  font-size: 13px;
 }
-.xxx{
+.params-details{
   border-top: 0.5px #6B6B6B dashed ;
   margin-top: 3px;
+}
+.params-css{
+  margin: 10px 0px 0px -20px;
 }
 .prev-btn{
 width:70px;
