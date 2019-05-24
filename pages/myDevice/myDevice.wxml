@@ -33,7 +33,7 @@
         </view>
         <view class="details-column">
           <view>设备在线数量</view>
-          <view>0台</view>
+          <view>{{operateInfo.onlineDeviceNum}}台</view>
         </view>
       </view>
       <view class="details">
