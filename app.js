@@ -15,7 +15,7 @@ App({
             success: result => {
               const data = {
                 "code": res.code,
-                "keyPoolId": "11", //小程序id
+                "keyPoolId": "13", //小程序id
               }
               let { encryptedData, iv } = result
 

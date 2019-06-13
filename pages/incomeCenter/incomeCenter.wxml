@@ -9,7 +9,7 @@
     </view>
 
     <view>
-      <scroll-view scroll-x="true" class="account-details" style='height:{{accountHeight}}px'>
+      <scroll-view scroll-x="true" class="account-details">
         <view class="params-css">
           <view class="user-details" style='height:{{accountHeight}}px'>
             用户名称
@@ -62,7 +62,7 @@
     </view>
 
     <view>
-      <scroll-view scroll-x="true" class="account-details" style='height:{{transferHeight}}px'>
+      <scroll-view scroll-x="true" class="account-details" >
         <view class="params-css">
           <view class="user-details" style='height:{{transferHeight}}px'>
             打款用户
@@ -87,12 +87,12 @@
             <view wx:for="{{transferList}}" wx:key="transferList" class="params-details">
               <view class="params-sty" wx:if="{{item.recordType==1}}">订单交易结算</view>
               <view class="params-sty" wx:elif="{{item.recordType==2}}">订单抽成结算</view>
-              <view class="params-sty" wx:if="{{item.recordType==3}}">余额交易结算</view>
-              <view class="params-sty" wx:if="{{item.recordType==4}}">余额抽成结算</view>
-              <view class="params-sty" wx:if="{{item.recordType==5}}">自助转账</view>
+              <view class="params-sty" wx:elif="{{item.recordType==3}}">余额交易结算</view>
+              <view class="params-sty" wx:elif="{{item.recordType==4}}">余额抽成结算</view>
+              <view class="params-sty" wx:elif="{{item.recordType==5}}">自助转账</view>
             </view>
           </view>
-          
+
           <view class="user-details" style='height:{{transferHeight}}px'>操作用户
             <view wx:for="{{transferList}}" wx:key="transferList" class="params-details">
               <view class="params-sty">{{item.opareateName}}</view>
@@ -117,8 +117,7 @@
         <button class="prev-btn" data-choose='next' bindtap='transferHandleChange' disabled="{{ (transferCurrent >= transferPageCount) ?true:false}}">下一页</button>
       </view>
     </view>
-
   </view>
 </view>
-<!-- <button class="btn" bindtap='exitLogin'>退出登录</button> -->
+
 <i-tab current='income'></i-tab>

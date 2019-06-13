@@ -1,11 +1,8 @@
 {
   "pages": [
-    
     "pages/myDevice/myDevice",
     "pages/login/login",
-    "pages/index/index",
     "pages/incomeCenter/incomeCenter"
-   
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,5 +19,6 @@
         "pagePath": "pages/incomeCenter/incomeCenter"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

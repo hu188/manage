@@ -27,10 +27,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("onload")
     wx.hideTabBar()
     //判断是否授权用户信息
     var that = this;
+    var url = 'https://www.tianrenyun.com/qsq/shgl/?type=1'
+
+    if (options.q) {
+      url = decodeURIComponent(options.q);
+    }
+    that.decodeUrl(url)
+ 
     wx.getSetting({
       success(res) {
         if (res.authSetting['scope.userInfo']) {
@@ -56,6 +62,15 @@ Page({
     });
 
   },
+  //解析二维码
+  decodeUrl(url) {
+    if (url) {
+      url = url
+    }
+    var urlList = url.split("?")
+    var type = urlList[1].split("=")
+    app.globalData.urlType = type[1];
+  },
   login() {
     var _self = this;
     wx.login({
@@ -65,7 +80,7 @@ Page({
           success: result => {
             const data = {
               "code": res.code,
-              "keyPoolId": "11", //小程序id
+              "keyPoolId": "13", //小程序id
             }
             let { encryptedData, iv } = result
 
@@ -131,7 +146,7 @@ Page({
     }
     http('qsq/service/external/WxUser/saveUserMessage', JSON.stringify(params), 1, 1).then(res => {
       if (res.openid == "" || res.openid != app.globalData.openid) {
-        wx.redirectTo({
+        wx.redirectTo ({
           url: '../login/login',
         })
       } else {

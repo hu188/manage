@@ -3,7 +3,7 @@
 <view wx:if="{{isHide}}">
   <view wx:if="{{canIUse}}">
     <view class='header'>
-      <image src='../images/pay.jpg'></image>
+      <image src='../images/shgl.png'></image>
     </view>
     <view class='content'>
       <view>申请获取以下权限</view>
@@ -62,8 +62,8 @@
       <i-icon type="collection_fill" size="20" color="#0188FB" />
       <view class="title">商品销量排行榜（近一个月）</view>
     </view>
-    <view wx:if="{{goodsSales!=''}}">
-      <view class="xpsl" style='height:{{goodsSales.length*28+30}}px'>
+    <view wx:if="{{goodsSales.length>0}}">
+      <view class="xpsl" >
         <view class="goods-sales">
           <view class="goods-details">商品名称</view>
           <view class="goods-details">销售数量</view>
@@ -81,9 +81,9 @@
       <i-icon type="collection_fill" size="20" color="#0188FB" />
       <view class="title">设备销量汇总（近一个月）</view>
     </view>
-    <view wx:if="{{deviceSales!=''}}">
-      <view class="sbxl" style='height:{{deviceSales.length*28+30}}px'>
-
+    <view wx:if="{{deviceSales.length>0}}">
+      <!-- <view class="sbxl" style='height:{{deviceSales.length*28+30}}px'> -->
+ <view class="sbxl" >
         <view class="goods-sales">
           <view class="goods-details">设备名称</view>
           <view class="goods-details">交易总数量</view>
@@ -102,8 +102,9 @@
       <i-icon type="collection_fill" size="20" color="#0188FB" />
       <view class="title">销售记录汇总（近一个月）</view>
     </view>
-    <view wx:if="{{tradeRecords!=''}}">
-      <view class="sbxl" style='height:{{tradeRecords.length*25+90}}px'>
+    <view wx:if="{{tradeRecords.length>0}}">
+      <!-- <view class="sbxl" style='height:{{tradeRecords.length*25+90}}px'> -->
+        <view class="sbxl">
         <view class="goods-sales">
           <view class="tradeRecords-details">商品</view>
           <view class="tradeRecords-num">数量</view>

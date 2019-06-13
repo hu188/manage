@@ -46,10 +46,11 @@ Page({
       }
     http('qsq/service/external/WxUser/saveUserLogin', JSON.stringify(params), 1, 1).then(res => {
         if (res.id) {
+          app.globalData.id = res.id
           wx.switchTab({
             url: '../myDevice/myDevice',
           })
-          app.globalData.id=res.id
+          
         }else{
           $Toast({
             content:res,
