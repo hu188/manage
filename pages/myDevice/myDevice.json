@@ -1,8 +1,11 @@
 {
   "navigationBarTitleText": "我的设备",
+  "enablePullDownRefresh": true, 
+  "backgroundTextStyle": "dark",
   "usingComponents": {
     "i-icon": "../../Components/icon/index",
       "i-tab": "../../Components/tabbar/index",
-      "i-page": "../../Components/page/index"
+      "i-page": "../../Components/page/index",
+      "i-message": "../../Components/message/index"
   }
 }

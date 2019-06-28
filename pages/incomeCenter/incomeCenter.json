@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "收益中心",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
   "usingComponents": {
     "i-icon": "../../Components/icon/index",
     "i-tab": "../../Components/tabbar/index"

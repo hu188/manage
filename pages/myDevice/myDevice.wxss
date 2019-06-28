@@ -1,7 +1,16 @@
 /* pages/myDevice/myDevice.wxss */
 .boby{
   margin: 10px;
-  height: 91%
+  height: 91%;
+}
+.list {
+  overflow:auto;
+  margin:auto;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
 }
 .title{
   font-weight: 600;
@@ -11,7 +20,6 @@
   display: flex;
   align-items: center;
   margin-top: 5px;
- 
 }
 .yxbg{
   background-color: rgba(238, 238, 238,0.6);
@@ -132,4 +140,73 @@
   margin-top: 10px;
   height: 10px;
   background: rgba(1,136,251,0.2);
+}
+/* 搜索框 */
+ .search{  
+      width: 80%;  
+    }  
+    .search_arr {  
+      border: 1px solid #d0d0d0;  
+      border-radius: 10rpx;  
+      margin-left: 20rpx;  
+    }  
+    .search_arr input{  
+      margin-left: 60rpx;  
+      height: 60rpx;  
+      border-radius: 5px;  
+    }  
+    .bc_text {  
+      line-height: 68rpx;  
+      height: 68rpx;  
+      margin-top: 34rpx;  
+    }  
+      
+ 
+    .refund{
+      height: 32px;
+      font-size: 18px;
+      line-height: 1.7
+    }
+    .page_row{  
+      display: flex;  
+      flex-direction: row ;
+      margin: 15px 0px 15px 0px;
+    }  
+    .searchcion {  
+      margin: 10rpx 10rpx 10rpx 10rpx;  
+      position: absolute;  
+      left:25rpx;  
+      z-index: 2;  
+      width: 20px;  
+      height: 20px;  
+      text-align: center;  
+    }  
+
+
+.account-details{
+
+  white-space: nowrap;
+  margin-top: 15px;
+  border-radius: 10px;
+}
+.user-details{
+  /* width: 130px;  */
+  padding:0px 15px;
+  width: auto;
+  height: auto; 
+  display: inline-block;
+  text-align:center;
+  /* border-right:  0.5px #6B6B6B dashed; */
+}
+.params-sty{
+  display: inline-block;
+ font-size: 14px;
+  color:#555;
+}
+.params-details{
+  /* border-top: 0.5px #6B6B6B dashed ; */
+  margin-top: 3px;
+}
+.params-css{
+  margin: 10px 0px 0px 0px;
 }

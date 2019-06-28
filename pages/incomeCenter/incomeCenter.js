@@ -12,11 +12,11 @@ Page({
     acountDetails:[],//分账信息
     acountCurrent:1,
     acountPageCount:1,
-    accountHeight:'',
+
     transferList:[],//转账记录
     transferCurrent: 1,
     transferPageCount: 1,
-    transferHeight: '',
+ 
   },
 
   /**
@@ -61,7 +61,7 @@ Page({
       that.setData({
         acountDetails: acountDetails,
         acountPageCount:res.pageCount,
-        accountHeight: acountDetails.length*29+30
+  
       })
     })
   },
@@ -103,7 +103,7 @@ Page({
       that.setData({
         transferList: transferList,
         transferPageCount: res.pageCount,
-        transferHeight: transferList.length * 29 + 30
+ 
       })
     })
   },
@@ -141,7 +141,16 @@ Page({
     }
     this.getTransferList()
   },
+  //下拉刷新
 
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.getAccountDetails();
+    this.getTransferList();
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
+
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -164,12 +173,7 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
 
-  },
 
   /**
    * 页面上拉触底事件的处理函数

@@ -3,6 +3,7 @@ var app = getApp();
 import { http } from '../../utils/http';
 import { encode } from '../../utils/encode';
 const util = require('../../utils/util.js')
+const { $Message } = require('../../Components/base/index');
 Page({
 
   /**
@@ -21,6 +22,7 @@ Page({
     current: 1,//当前页
     pageCount:'1',//总页数
     realName:'',//用户名
+    inputValue: '',
   },
 
   /**
@@ -254,6 +256,53 @@ Page({
       })
     })
   },
+  refundMoney: function (e) {
+    let that = this;
+   let refundOrderNo = e.detail.value.input;
+    const { sessionId,  type, levelTypeId } = app.globalData
+   wx.showModal({
+     title: '温馨提示',
+     content: '您确定退款吗',
+     success(res){
+       if(res.confirm){
+         const params = {
+           sign: encode({
+             refundOrderNo: refundOrderNo,
+             type:type,
+             levelTypeId: levelTypeId
+           }, sessionId),
+           sessionId:sessionId,
+           params: {
+             refundOrderNo: refundOrderNo,
+             type: type,
+             levelTypeId: levelTypeId
+           }
+         }
+         http('qsq/service/external/salesDetails/saveRefundMoney', JSON.stringify(params), 1, 1).then(res=>{
+           $Message({
+             content: res,
+             type: 'success'
+           });
+           that.setData({
+             inputValue:''
+           })
+         })
+       }
+     }
+   })
+  },
+
+
+  //下拉刷新
+ 
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.queryOperationData();
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
+
+  },
+
   //退出登录
   exitLogin: function () {
     wx.showModal({

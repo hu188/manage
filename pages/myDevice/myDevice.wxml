@@ -18,112 +18,167 @@
 <view wx:else class="boby">
   <view style='font-size:15px; text-align: right;margin-right:20px;font-weight: 600;'>
     <text style='margin-right:25px;'>欢迎您，{{realName}}</text>
-    <text style='color:red'  bindtap='exitLogin'>退出</text>
+    <text style='color:red' bindtap='exitLogin'>退出</text>
   </view>
   <scroll-view scroll-y scroll-x='false' style='height:97%'>
-    <view class="title-sty">
-      <i-icon type="collection_fill" size="20" color="#0188FB" />
-      <view class="title">运营报告</view>
-    </view>
-    <view class="yxbg">
-      <view class="details">
-        <view class="details-column">
-          <view>我的设备数量</view>
-          <view>{{operateInfo.deviceNum}}台</view>
+    <view class="list">
+      <view class="title-sty">
+        <i-icon type="collection_fill" size="20" color="#0188FB" />
+        <view class="title">运营报告</view>
+      </view>
+      <view class="yxbg">
+        <view class="details">
+          <view class="details-column">
+            <view>我的设备数量</view>
+            <view>{{operateInfo.deviceNum}}台</view>
+          </view>
+          <view class="details-column">
+            <view>设备在线数量</view>
+            <view>{{operateInfo.onlineDeviceNum}}台</view>
+          </view>
         </view>
-        <view class="details-column">
-          <view>设备在线数量</view>
-          <view>{{operateInfo.onlineDeviceNum}}台</view>
+        <view class="details">
+          <view class="details-column">
+            <view>当日销量</view>
+            <view>{{operateInfo.todayCount?operateInfo.todayCount:0}}笔</view>
+          </view>
+          <view class="details-column">
+            <view>当日售额</view>
+            <view>￥{{price.price(operateInfo.todayMoney?operateInfo.todayMoney:0)}}元</view>
+          </view>
+        </view>
+        <view class="details">
+          <view class="details-column">
+            <view>当月销量</view>
+            <view>{{operateInfo.currentMonthCount?operateInfo.currentMonthCount:0}}笔</view>
+          </view>
+          <view class="details-column">
+            <view>当月售额</view>
+            <view>￥{{price.price(operateInfo.currentMonthMoney?operateInfo.currentMonthMoney:0)}}元</view>
+          </view>
         </view>
       </view>
-      <view class="details">
-        <view class="details-column">
-          <view>当日销量</view>
-          <view>{{operateInfo.todayCount?operateInfo.todayCount:0}}笔</view>
-        </view>
-        <view class="details-column">
-          <view>当日售额</view>
-          <view>￥{{price.price(operateInfo.todayMoney?operateInfo.todayMoney:0)}}元</view>
+      <view class="empty"></view>
+      <view class="title-sty">
+        <i-icon type="collection_fill" size="20" color="#0188FB" />
+        <view class="title">商品销量排行榜（近一个月）</view>
+      </view>
+      <view wx:if="{{goodsSales.length>0}}">
+        <view class="xpsl">
+          <view class="goods-sales">
+            <view class="goods-details">商品名称</view>
+            <view class="goods-details">销售数量</view>
+            <view class="goods-details">销售金额</view>
+          </view>
+          <view wx:for="{{goodsSales}}" wx:key="goodsSales" class="goods-sales">
+            <view class="goods-details-txt">{{item.goodsRoadName}}</view>
+            <view class="goods-details-txt">{{item.saleCount}}</view>
+            <view class="goods-details-txt">{{item.money}}</view>
+          </view>
         </view>
       </view>
-      <view class="details">
-        <view class="details-column">
-          <view>当月销量</view>
-          <view>{{operateInfo.currentMonthCount?operateInfo.currentMonthCount:0}}笔</view>
-        </view>
-        <view class="details-column">
-          <view>当月售额</view>
-          <view>￥{{price.price(operateInfo.currentMonthMoney?operateInfo.currentMonthMoney:0)}}元</view>
-        </view>
+      <view class="empty"></view>
+      <view class="title-sty">
+        <i-icon type="collection_fill" size="20" color="#0188FB" />
+        <view class="title">设备销量汇总（近一个月）</view>
       </view>
-    </view>
- <view class="empty"></view>
-    <view class="title-sty">
-      <i-icon type="collection_fill" size="20" color="#0188FB" />
-      <view class="title">商品销量排行榜（近一个月）</view>
-    </view>
-    <view wx:if="{{goodsSales.length>0}}">
-      <view class="xpsl" >
-        <view class="goods-sales">
-          <view class="goods-details">商品名称</view>
-          <view class="goods-details">销售数量</view>
-          <view class="goods-details">销售金额</view>
-        </view>
-        <view wx:for="{{goodsSales}}" wx:key="goodsSales" class="goods-sales">
-          <view class="goods-details-txt">{{item.goodsRoadName}}</view>
-          <view class="goods-details-txt">{{item.saleCount}}</view>
-          <view class="goods-details-txt">{{item.money}}</view>
-        </view>
-      </view>
-    </view>
- <view class="empty"></view>
-    <view class="title-sty">
-      <i-icon type="collection_fill" size="20" color="#0188FB" />
-      <view class="title">设备销量汇总（近一个月）</view>
-    </view>
-    <view wx:if="{{deviceSales.length>0}}">
-      <!-- <view class="sbxl" style='height:{{deviceSales.length*28+30}}px'> -->
- <view class="sbxl" >
-        <view class="goods-sales">
-          <view class="goods-details">设备名称</view>
-          <view class="goods-details">交易总数量</view>
-          <view class="goods-details">交易总金额</view>
-        </view>
-        <view wx:for="{{deviceSales}}" wx:key="deviceSales" class="goods-sales">
-          <view class="goods-details-txt">{{item.remark}}</view>
-          <view class="goods-details-txt">{{item.weChatCount+item.otherPayCount+item.aliPayCount}}</view>
-          <view class="goods-details-txt">{{price.price(item.weChatAmount+item.otherPayAmount+item.aliPayAmount)}}</view>
-        </view>
-
-      </view>
-    </view>
-     <view class="empty"></view>
-    <view class="title-sty">
-      <i-icon type="collection_fill" size="20" color="#0188FB" />
-      <view class="title">销售记录汇总（近一个月）</view>
-    </view>
-    <view wx:if="{{tradeRecords.length>0}}">
-      <!-- <view class="sbxl" style='height:{{tradeRecords.length*25+90}}px'> -->
+      <view wx:if="{{deviceSales.length>0}}">
         <view class="sbxl">
-        <view class="goods-sales">
-          <view class="tradeRecords-details">商品</view>
-          <view class="tradeRecords-num">数量</view>
-          <view class="tradeRecords-num">金额</view>
-          <view class="tradeRecords-time">交易时间</view>
-        </view>
-        <view wx:for="{{tradeRecords}}" wx:key="tradeRecords" class="goods-sales">
-          <view class="tradeRecords-details" style='font-size:13px;'>{{item.goodsRoadName}}</view>
-          <view class="tradeRecords-num" style='font-size:13px;'>{{item.cupsNumber}}</view>
-          <view class="tradeRecords-num" style='font-size:13px;'>{{item.money}}</view>
-          <view class="tradeRecords-time" style='font-size:13px;'>{{item.time}}</view>
-        </view>
-        <view class="choose-btn">
-          <button class="btn" data-choose='prev' bindtap='handleChange' disabled="{{ (current <= 1) ? true : false}}">上一页</button>
-          <view>{{current}}/{{pageCount}}</view>
-          <button class="btn" data-choose='next' bindtap='handleChange' disabled="{{ (current >= pageCount) ?true:false}}">下一页</button>
+          <view class="goods-sales">
+            <view class="goods-details">设备名称</view>
+            <view class="goods-details">交易总数量</view>
+            <view class="goods-details">交易总金额</view>
+          </view>
+          <view wx:for="{{deviceSales}}" wx:key="deviceSales" class="goods-sales">
+            <view class="goods-details-txt">{{item.remark}}</view>
+            <view class="goods-details-txt">{{item.weChatCount+item.otherPayCount+item.aliPayCount}}</view>
+            <view class="goods-details-txt">{{price.price(item.weChatAmount+item.otherPayAmount+item.aliPayAmount)}}</view>
+          </view>
+
         </view>
       </view>
+      <view class="empty"></view>
+      <view class="title-sty">
+        <i-icon type="collection_fill" size="20" color="#0188FB" />
+        <view class="title" >销售记录汇总（近一个月）</view>
+      </view>
+      <view wx:if="{{tradeRecords.length>0}}">
+        <view class="sbxl">
+          <!-- <view class="goods-sales">
+            <view class="tradeRecords-details">商品</view>
+            <view class="tradeRecords-num">数量</view>
+            <view class="tradeRecords-num">金额</view>
+            <view class="tradeRecords-time">交易时间</view>
+          </view>
+          <view wx:for="{{tradeRecords}}" wx:key="tradeRecords" class="goods-sales">
+            <view class="tradeRecords-details" style='font-size:13px;'>{{item.goodsRoadName}}</view>
+            <view class="tradeRecords-num" style='font-size:13px;'>{{item.cupsNumber}}</view>
+            <view class="tradeRecords-num" style='font-size:13px;'>{{item.money}}</view>
+            <view class="tradeRecords-time" style='font-size:13px;'>{{item.time}}</view>
+          </view> -->
+          <scroll-view scroll-x="true" class="account-details">
+            <view style='display:flex'>
+              <view class="user-details">
+                商品名称
+                <view wx:for="{{tradeRecords}}" wx:key="acountDetails" class="params-details">
+                  <view class="params-sty">{{item.goodsRoadName}}</view>
+                </view>
+              </view>
+              <view class="user-details">
+                数量
+                <view wx:for="{{tradeRecords}}" wx:key="acountDetails" class="params-details">
+                  <view class="params-sty">{{item.cupsNumber}}</view>
+                </view>
+              </view>
+              <view class="user-details">
+                金额
+                <view wx:for="{{tradeRecords}}">
+                  <view class="params-sty">{{item.money}}</view>
+                </view>
+              </view>
+              <view class="user-details">
+                订单号
+                <view wx:for="{{tradeRecords}}" wx:key="acountDetails" class="params-details">
+                  <text class="params-sty" selectable='true'>{{item.PcOrderNo?item.PcOrderNo:item.orderNo}}</text>
+                </view>
+              </view>
+           
+              <view class="user-details">
+                交易时间
+                <view wx:for="{{tradeRecords}}" wx:key="acountDetails" class="params-details">
+                  <view class="params-sty">{{item.time}}</view>
+                </view>
+              </view>
+            </view>
+
+          </scroll-view>
+          <view class="choose-btn">
+            <button class="btn" data-choose='prev' bindtap='handleChange' disabled="{{ (current <= 1) ? true : false}}">上一页</button>
+            <view>{{current}}/{{pageCount}}</view>
+            <button class="btn" data-choose='next' bindtap='handleChange' disabled="{{ (current >= pageCount) ?true:false}}">下一页</button>
+          </view>
+        </view>
+      </view>
+      <!-- 退款 -->
+      <view class="empty"></view>
+      <view class="title-sty">
+        <i-icon type="collection_fill" size="20" color="#0188FB" />
+        <view class="title">在线退款</view>
+      </view>
+      <!-- 搜索框 -->
+      <form bindsubmit="refundMoney">
+        <view class='page_row'>
+          <view class="search">
+            <view class="df search_arr">
+              <icon class="searchcion" size='20' type='search'></icon>
+              <input name="input" placeholder="请输入订单号" value="{{inputValue}}" />
+            </view>
+          </view>
+          <button class="refund" form-type="submit">退款</button>
+        </view>
+      </form>
     </view>
   </scroll-view>
 </view>
 <i-tab></i-tab>
+<i-message id="message" />
